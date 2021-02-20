@@ -34,7 +34,7 @@ public class ChitFundsAppApplication {
 		
 		return new ApiInfo("ChitFundsApp", "Make Chits easy", "1.0", "free to use", 
 				new springfox.documentation.service.Contact("Anand", "http:909/chits", "avr@gmail.com"),
-				"Licenec", "abcd", Collections.emptyList());
+				"Licenec", "http://localhost:8090/chits/swagger-ui.html", Collections.emptyList());
 		
 	}
 
