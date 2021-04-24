@@ -3,12 +3,10 @@ package com.chits.pay.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chits.pay.businesslogics.AdminLogics;
@@ -19,10 +17,10 @@ import com.chits.pay.reqpayloads.PaymentDetails;
 import com.chits.pay.resppayloads.ResponseDTO;
 
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("admin")
+@CrossOrigin
 public class AdminController {
 	
 	@Autowired
@@ -35,11 +33,6 @@ public class AdminController {
 		return new ResponseEntity<>(responseDTO,HttpStatus.OK);
 	}
 	
-	@GetMapping("test")	 
-	public ResponseEntity<?> test( @ApiParam(value = "Id of the test",required = true) @RequestParam String id){
-		System.out.println(id);
-		return new ResponseEntity<>("Success",HttpStatus.OK);
-	}
 	
 	@PostMapping("login")
 	public ResponseEntity<?> login(@RequestBody AdminDetails adminDetails){

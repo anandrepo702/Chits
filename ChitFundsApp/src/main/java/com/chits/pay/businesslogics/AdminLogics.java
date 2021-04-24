@@ -63,20 +63,20 @@ public class AdminLogics {
 				AdminDetailsEntity savedAdminDetails = adminDetailsRepository.save(adminDetailsEntity);
 				if(savedAdminDetails == null) {
 					responseDTO.setStatusCode("590");
-					responseDTO.setStatusMesaage("Admin not registered please try again");
+					responseDTO.setStatusMessage("Admin not registered please try again");
 				}else {
 					responseDTO.setStatusCode("200");
-					responseDTO.setStatusMesaage("Success");
+					responseDTO.setStatusMessage("Success");
 					responseDTO.setAdminName(savedAdminDetails.getName());
 				}
 			}else {
 				responseDTO.setStatusCode("409");
-				responseDTO.setStatusMesaage("User already exists");
+				responseDTO.setStatusMessage("User already exists");
 			}
 		}catch (Exception e) {
 			logger.error("Got exception while registering the admin ",e);
 			responseDTO.setStatusCode("500");
-			responseDTO.setStatusMesaage("Internal Server Error");
+			responseDTO.setStatusMessage("Internal Server Error");
 		}
 		return responseDTO;
 	}
@@ -87,14 +87,16 @@ public class AdminLogics {
 			AdminDetailsEntity validateLogin = adminDetailsRepository.validateLogin(adminDetails.getEmailId(),adminDetails.getPassword());
 			if(validateLogin == null) {
 				responseDTO.setStatusCode("401");
-				responseDTO.setStatusMesaage("Invalid User");
+				responseDTO.setStatusMessage("Invalid User");
 				return responseDTO;
 			}
 			responseDTO = showChitsDashBoard(validateLogin.getAdminId());
+			responseDTO.setAdminId(validateLogin.getAdminId());
+			responseDTO.setAdminName(validateLogin.getName());
 		}catch (Exception e) {
 			logger.error("Got exception while login ",e);
 			responseDTO.setStatusCode("500");
-			responseDTO.setStatusMesaage("Internal Server Error");
+			responseDTO.setStatusMessage("Internal Server Error");
 		}
 		return responseDTO;
 	}
@@ -104,13 +106,13 @@ public class AdminLogics {
 		try {
 			List<ChitsDetailsEntity> chitDetailsList = chitsDetailsRepository.getChitDetails(adminId);
 			responseDTO.setStatusCode("200");
-			responseDTO.setStatusMesaage("Success");
+			responseDTO.setStatusMessage("Success");
 			responseDTO.setChitsDetailsList(chitDetailsList);
 			responseDTO.setCount(chitDetailsList.size());
 		}catch (Exception e) {
 			logger.error("Got exception while getting the chits details ",e);
 			responseDTO.setStatusCode("500");
-			responseDTO.setStatusMesaage("Internal Server Error");
+			responseDTO.setStatusMessage("Internal Server Error");
 		}
 		return responseDTO;
 	}
@@ -125,14 +127,14 @@ public class AdminLogics {
 				paymentDetailsMap.put(mde.getMemberName(), paymentDetails);
 			}
 			responseDTO.setStatusCode("200");
-			responseDTO.setStatusMesaage("Success");
+			responseDTO.setStatusMessage("Success");
 			responseDTO.setMembersDetailsList(membersDetailsList);
 			responseDTO.setPaymentDetailsMap(paymentDetailsMap);
 			responseDTO.setCount(membersDetailsList.size());
 		}catch (Exception e) {
 			logger.error("Got exception while getting the member details ",e);
 			responseDTO.setStatusCode("500");
-			responseDTO.setStatusMesaage("Internal Server Error");
+			responseDTO.setStatusMessage("Internal Server Error");
 		}
 		return responseDTO;
 	}
@@ -150,11 +152,11 @@ public class AdminLogics {
 			chitsDetailsEntity.setNoOfMembers(chitsDetails.getNoOfMembers());
 			chitsDetailsRepository.save(chitsDetailsEntity);
 			responseDTO.setStatusCode("200");
-			responseDTO.setStatusMesaage("Success");
+			responseDTO.setStatusMessage("Success");
 		}catch (Exception e) {
 			logger.error("Got exception while creating the new chit ",e);
 			responseDTO.setStatusCode("500");
-			responseDTO.setStatusMesaage("Internal Server Error");
+			responseDTO.setStatusMessage("Internal Server Error");
 		}
 		return responseDTO;
 	}
@@ -193,11 +195,11 @@ public class AdminLogics {
 				}
 			}	
 			responseDTO.setStatusCode("200");
-			responseDTO.setStatusMesaage("Success");
+			responseDTO.setStatusMessage("Success");
 		}catch (Exception e) {
 			logger.error("Got exception while adding members to the chit ",e);
 			responseDTO.setStatusCode("500");
-			responseDTO.setStatusMesaage("Internal Server Error");
+			responseDTO.setStatusMessage("Internal Server Error");
 		}
 		return responseDTO;
 	}
@@ -210,11 +212,11 @@ public class AdminLogics {
 				paymentDetailsRepository.updatePaymentDetails(payments.getAmountPaid(), payments.getChitWithDrawnOrNot(), payments.getPaymentId());
 			}
 			responseDTO.setStatusCode("200");
-			responseDTO.setStatusMesaage("Success");
+			responseDTO.setStatusMessage("Success");
 		}catch (Exception e) {
 			logger.error("Got exception while updating the payment details ",e);
 			responseDTO.setStatusCode("500");
-			responseDTO.setStatusMesaage("Internal Server Error");
+			responseDTO.setStatusMessage("Internal Server Error");
 		}
 		
 		return responseDTO;

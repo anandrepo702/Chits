@@ -18,7 +18,7 @@ public class ResponseDTO implements Serializable{
 	private static final long serialVersionUID = 4186532256857211912L;
 	
 	private String statusCode;
-	private String statusMesaage;
+	private String statusMessage;
 	private BigInteger adminId;
 	private String adminName;
 	private List<ChitsDetailsEntity> chitsDetailsList;
@@ -51,11 +51,11 @@ public class ResponseDTO implements Serializable{
 	public void setStatusCode(String statusCode) {
 		this.statusCode = statusCode;
 	}
-	public String getStatusMesaage() {
-		return statusMesaage;
+	public String getStatusMessage() {
+		return statusMessage;
 	}
-	public void setStatusMesaage(String statusMesaage) {
-		this.statusMesaage = statusMesaage;
+	public void setStatusMessage(String statusMessage) {
+		this.statusMessage = statusMessage;
 	}
 	public List<ChitsDetailsEntity> getChitsDetailsList() {
 		return chitsDetailsList;
