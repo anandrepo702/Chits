@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chits.pay.businesslogics.AdminLogics;
 import com.chits.pay.reqpayloads.AdminDetails;
 import com.chits.pay.reqpayloads.ChitsDetails;
+import com.chits.pay.reqpayloads.LoginDetails;
 import com.chits.pay.reqpayloads.MembersDetails;
 import com.chits.pay.reqpayloads.PaymentDetails;
+import com.chits.pay.reqpayloads.ShowChitsDashBoard;
+import com.chits.pay.reqpayloads.ShowMembersDashBoard;
 import com.chits.pay.resppayloads.ResponseDTO;
 
 import io.swagger.annotations.ApiOperation;
@@ -27,27 +30,26 @@ public class AdminController {
 	AdminLogics adminLogics;
 
 	@PostMapping("register")
-	@ApiOperation(value = "Registers the admin",notes="aaaaaaaaa",response=ResponseDTO.class)
+	@ApiOperation(value = "Registers the admin",notes="Registers the admin with high speed",response=ResponseDTO.class)
 	public ResponseEntity<?> register(@RequestBody AdminDetails adminDetails){
 		ResponseDTO responseDTO = adminLogics.register(adminDetails);
 		return new ResponseEntity<>(responseDTO,HttpStatus.OK);
 	}
 	
-	
 	@PostMapping("login")
-	public ResponseEntity<?> login(@RequestBody AdminDetails adminDetails){
-		ResponseDTO responseDTO = adminLogics.login(adminDetails);
+	public ResponseEntity<?> login(@RequestBody LoginDetails loginDetails){
+		ResponseDTO responseDTO = adminLogics.login(loginDetails);
 		return new ResponseEntity<>(responseDTO,HttpStatus.OK);
 	}
 	
 	@PostMapping("show-chits-dashboard")
-	public ResponseEntity<?> showChitsDashBoard(@RequestBody ChitsDetails chitsDetails){
+	public ResponseEntity<?> showChitsDashBoard(@RequestBody ShowChitsDashBoard chitsDetails){
 		ResponseDTO responseDTO = adminLogics.showChitsDashBoard(chitsDetails.getAdminId());
 		return new ResponseEntity<>(responseDTO,HttpStatus.OK);
 	}
 	
 	@PostMapping("show-members-dashboard")
-	public ResponseEntity<?> showMembersDashBoard(@RequestBody ChitsDetails chitsDetails){
+	public ResponseEntity<?> showMembersDashBoard(@RequestBody ShowMembersDashBoard chitsDetails){
 		ResponseDTO responseDTO = adminLogics.showMembersDashBoard(chitsDetails.getChitId());
 		return new ResponseEntity<>(responseDTO,HttpStatus.OK);
 	}

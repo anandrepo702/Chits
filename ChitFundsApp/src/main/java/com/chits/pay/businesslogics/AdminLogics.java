@@ -22,6 +22,7 @@ import com.chits.pay.repositories.MonthsLookUpRepository;
 import com.chits.pay.repositories.PaymentDetailsRepository;
 import com.chits.pay.reqpayloads.AdminDetails;
 import com.chits.pay.reqpayloads.ChitsDetails;
+import com.chits.pay.reqpayloads.LoginDetails;
 import com.chits.pay.reqpayloads.Members;
 import com.chits.pay.reqpayloads.MembersDetails;
 import com.chits.pay.reqpayloads.PaymentDetails;
@@ -81,10 +82,10 @@ public class AdminLogics {
 		return responseDTO;
 	}
 	
-	public ResponseDTO login(AdminDetails adminDetails) {
+	public ResponseDTO login(LoginDetails loginDetails) {
 		ResponseDTO responseDTO = new ResponseDTO();
 		try {
-			AdminDetailsEntity validateLogin = adminDetailsRepository.validateLogin(adminDetails.getEmailId(),adminDetails.getPassword());
+			AdminDetailsEntity validateLogin = adminDetailsRepository.validateLogin(loginDetails.getEmailId(),loginDetails.getPassword());
 			if(validateLogin == null) {
 				responseDTO.setStatusCode("401");
 				responseDTO.setStatusMessage("Invalid User");

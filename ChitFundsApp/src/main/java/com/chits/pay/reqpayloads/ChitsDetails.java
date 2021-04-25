@@ -9,21 +9,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class ChitsDetails implements Serializable{
 	private static final long serialVersionUID = 5701597765393622926L;
 	
-	private BigInteger chitId;
 	private BigInteger adminId;
 	private Integer chitNumber;
 	private String chitNickName;
-	private Boolean activeOrNot;
 	private String chitStartedMonth;
 	private Integer noOfMonths;
 	private Integer noOfMembers;
 	
-	public BigInteger getChitId() {
-		return chitId;
-	}
-	public void setChitId(BigInteger chitId) {
-		this.chitId = chitId;
-	}
 	public BigInteger getAdminId() {
 		return adminId;
 	}
@@ -41,12 +33,6 @@ public class ChitsDetails implements Serializable{
 	}
 	public void setChitNickName(String chitNickName) {
 		this.chitNickName = chitNickName;
-	}
-	public Boolean getActiveOrNot() {
-		return activeOrNot;
-	}
-	public void setActiveOrNot(Boolean activeOrNot) {
-		this.activeOrNot = activeOrNot;
 	}
 	public String getChitStartedMonth() {
 		return chitStartedMonth;
