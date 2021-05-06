@@ -3,11 +3,9 @@ package com.chits.pay.resppayloads;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Map;
 
 import com.chits.pay.entity.ChitsDetailsEntity;
 import com.chits.pay.entity.MembersDetailsEntity;
-import com.chits.pay.entity.PaymentDetailsEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -24,8 +22,8 @@ public class ResponseDTO implements Serializable{
 	private List<ChitsDetailsEntity> chitsDetailsList;
 	private List<MembersDetailsEntity> membersDetailsList;
 	private Integer count;
-	private Map<String, List<PaymentDetailsEntity>> paymentDetailsMap;
-	
+	private BigInteger chitId;
+
 	
 	public Integer getCount() {
 		return count;
@@ -69,14 +67,12 @@ public class ResponseDTO implements Serializable{
 	public void setMembersDetailsList(List<MembersDetailsEntity> membersDetailsList) {
 		this.membersDetailsList = membersDetailsList;
 	}
-	public Map<String, List<PaymentDetailsEntity>> getPaymentDetailsMap() {
-		return paymentDetailsMap;
+	public BigInteger getChitId() {
+		return chitId;
 	}
-	public void setPaymentDetailsMap(Map<String, List<PaymentDetailsEntity>> paymentDetailsMap) {
-		this.paymentDetailsMap = paymentDetailsMap;
+	public void setChitId(BigInteger chitId) {
+		this.chitId = chitId;
 	}
-	
-	
-	
 
+	
 }

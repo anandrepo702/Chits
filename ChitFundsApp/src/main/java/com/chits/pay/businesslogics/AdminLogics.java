@@ -1,9 +1,10 @@
 package com.chits.pay.businesslogics;
 
 import java.math.BigInteger;
-import java.util.HashMap;
+import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -122,16 +123,20 @@ public class AdminLogics {
 		ResponseDTO responseDTO = new ResponseDTO();
 		try {
 			List<MembersDetailsEntity> membersDetailsList = membersDetailsRepository.getMembersDetails(chitId);
-			Map<String, List<PaymentDetailsEntity>> paymentDetailsMap  = new HashMap<>(); 
+			List<MembersDetailsEntity> membersDetailsListFinal = new LinkedList<>();
+			String currentMonthYear = getCurrentMonthYear();
 			for(MembersDetailsEntity mde : membersDetailsList) {
 				List<PaymentDetailsEntity> paymentDetails = paymentDetailsRepository.getPaymentDetails(mde.getMemberId());
-				paymentDetailsMap.put(mde.getMemberName(), paymentDetails);
+				mde.setPaymentDetailsList(paymentDetails);
+				PaymentDetailsEntity pde = paymentDetails.stream().filter(pd -> pd.getMonthYear().equals(currentMonthYear)).findFirst().get();
+				mde.setPaymentDetailsCurrentMonth(pde);
+				membersDetailsListFinal.add(mde);
 			}
 			responseDTO.setStatusCode("200");
 			responseDTO.setStatusMessage("Success");
-			responseDTO.setMembersDetailsList(membersDetailsList);
-			responseDTO.setPaymentDetailsMap(paymentDetailsMap);
+			responseDTO.setChitId(chitId);
 			responseDTO.setCount(membersDetailsList.size());
+			responseDTO.setMembersDetailsList(membersDetailsListFinal);
 		}catch (Exception e) {
 			logger.error("Got exception while getting the member details ",e);
 			responseDTO.setStatusCode("500");
@@ -225,7 +230,6 @@ public class AdminLogics {
 	
 	
 	private String getNextMonth(String monthYear) {
-		
 		String month = monthYear.substring(0, 2);
 		int monthInt = Integer.parseInt(month);
 		String year = monthYear.substring(2, 6);
@@ -241,5 +245,10 @@ public class AdminLogics {
 		}
 	    String str2 = Integer.toString(yearInt);
 	    return str1.concat(str2);
+	}
+	
+	private String getCurrentMonthYear() {
+		String currentDate = LocalDate.now().toString();
+	    return currentDate.substring(5, 7).concat(currentDate.substring(0, 4));
 	}
 }

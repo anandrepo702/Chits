@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "payment_details")
 public class PaymentDetailsEntity {
@@ -18,6 +20,7 @@ public class PaymentDetailsEntity {
 	@Column(name = "payment_id")
 	private BigInteger paymentId;
 	
+	@JsonIgnore
 	@Column(name = "member_id")
 	private BigInteger memberId;
 	
